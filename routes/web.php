@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+
+Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('/register', 'App\Http\Controllers\Auth\RegisterController@register');
+
 
 Route::get('/nilai-siswa', function () {
     return view('nilai-siswa');
@@ -61,3 +67,7 @@ Route::post('/hitung-grade', function (Request $request) {
 
     return view('hasil-grade')->with('grades', $grades);
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
